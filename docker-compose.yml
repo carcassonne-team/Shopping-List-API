@@ -27,19 +27,14 @@ services:
       - .:/application
       - ./environment/php-fpm/php-ini-overrides.ini:/etc/php/7.3/fpm/conf.d/99-overrides.ini
 
-  mysql:
-    image: mysql:5.6
-    container_name: application-mysql
-    working_dir: /application
+  db:
+    image: postgres
     volumes:
-      - .:/application
+      - ./tmp/db:/var/lib/postgresql/data
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=database
-      - MYSQL_USER=user
-      - MYSQL_PASSWORD=password
+      POSTGRES_PASSWORD: 1234
     ports:
-      - "14402:3306"
+      - "5432:5432"
 
   redis:
     image: redis:alpine
