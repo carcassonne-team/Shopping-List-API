@@ -1,0 +1,33 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Category;
+
+
+class CategoryController extends Controller
+{
+    //
+    function list($id=null)
+    {
+        return $id?Category::find($id):Category::all();
+    }
+
+    function add(Request $request)
+    {
+        $category = new Category();
+        $category->name = $request->name;
+        $category->created_by_user = true;
+        $result=$category->save();
+
+        if($result)
+        {
+            return ["Result" =>"Data has been saved"];
+        }
+        else
+        {
+            return ["Result" =>"Operation failed"];
+        }
+    }
+}
