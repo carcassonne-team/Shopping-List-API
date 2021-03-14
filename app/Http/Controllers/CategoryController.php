@@ -27,7 +27,24 @@ class CategoryController extends Controller
         }
         else
         {
-            return ["Result" =>"Operation failed"];
+            return ["Result" =>"Add operation failed"];
+        }
+    }
+
+    function update(Request $request)
+    {
+        $category = Category::find($request->id);
+        $category->name = $request->name;
+        $category->created_by_user = $request->created_by_user;
+        $result=$category->save();
+
+        if($result)
+        {
+            return ["Result" =>"Data has been updated"];
+        }
+        else
+        {
+            return ["Result" =>"Update operation failed"];
         }
     }
 }

@@ -22,3 +22,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get("categories/{id?}",[CategoryController::class,'list']);
 
 Route::post("categories/add",[CategoryController::class,'add']);
+
+Route::put("categories/update",[CategoryController::class,'update']);
