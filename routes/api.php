@@ -14,26 +14,30 @@ use App\Http\Controllers\CategoryController;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::group([
-    'middleware' => 'api',
-    'prefix' => 'auth'
-
-], function ($router) {
-
-    Route::post('register', 'JWTAuthController@register');
-    Route::post('login', 'JWTAuthController@login');
-    Route::post('logout', 'JWTAuthController@logout');
-    Route::post('refresh', 'JWTAuthController@refresh');
-    Route::get('profile', 'JWTAuthController@profile');
-
-});
-
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get("categories/{id?}",[CategoryController::class,'list']);
+Route::group([
+    'prefix' => 'auth'], function() {
+Route::post('register', 'UserController@register');
+Route::post('login', 'UserController@authenticate');
+Route::get('open', 'DataController@open');
+});
 
-Route::post("categories/add",[CategoryController::class,'add']);
+Route::group([
+    'middleware' => ['jwt.verify'],
+    'prefix' => 'auth'], function() {
 
-Route::put("categories/update",[CategoryController::class,'update']);
+    Route::get('user', 'UserController@getAuthenticatedUser');
+    Route::get('closed', 'DataController@closed');
+});
+
+Route::group([
+    'middleware' => ['jwt.verify'],
+    'prefix' => 'categories'], function() {
+
+    Route::get("{id?}",[CategoryController::class,'list']);
+    Route::post("add",[CategoryController::class,'add']);
+    Route::put("update",[CategoryController::class,'update']);
+});
