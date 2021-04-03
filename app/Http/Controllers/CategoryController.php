@@ -11,7 +11,7 @@ class CategoryController extends Controller
     //
     function index($id=null)
     {
-        return $id?Category::find($id):Category::all();
+        return $id?Category::findOrFail($id):Category::all();
     }
 
     function create(Request $request)
@@ -33,7 +33,7 @@ class CategoryController extends Controller
 
     function update(Request $request, $id)
     {
-        $category = Category::find($id);
+        $category = Category::findOrFail($id);
         $category->name = $request->name;
         $category->created_by_user = $request->created_by_user;
         $result=$category->save();

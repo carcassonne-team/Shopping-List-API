@@ -10,7 +10,7 @@ class ProductController extends Controller
 
     public function index($id=null)
     {
-        return $id?Product::find($id):Product::all();
+        return $id?Product::findOrFail($id):Product::all();
     }
 
     public function create(Request $request)
@@ -32,7 +32,7 @@ class ProductController extends Controller
 
     public function update(Request $request,$id)
     {
-        $product = Product::find($id);
+        $product = Product::findOrFail($id);
         $product->name = $request->name;
         $product->category_id = $request->category_id;
         $result=$product->save();
