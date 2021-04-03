@@ -9,12 +9,12 @@ use App\Category;
 class CategoryController extends Controller
 {
     //
-    function list($id=null)
+    function index($id=null)
     {
         return $id?Category::find($id):Category::all();
     }
 
-    function add(Request $request)
+    function create(Request $request)
     {
         $category = new Category();
         $category->name = $request->name;
@@ -31,9 +31,9 @@ class CategoryController extends Controller
         }
     }
 
-    function update(Request $request)
+    function update(Request $request, $id)
     {
-        $category = Category::find($request->id);
+        $category = Category::find($id);
         $category->name = $request->name;
         $category->created_by_user = $request->created_by_user;
         $result=$category->save();
