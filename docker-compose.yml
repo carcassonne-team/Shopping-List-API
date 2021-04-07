@@ -35,3 +35,6 @@ services:
       POSTGRES_PASSWORD: 1234
     ports:
       - "5432:5432"
+  redis:
+    image: redis:alpine
+    container_name: application-redis
