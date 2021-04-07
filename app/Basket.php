@@ -9,6 +9,16 @@ class Basket extends Model
     public $timestamps=false;
 
     protected $fillable = [
-        'name', 'category_id'
+        'product_list_id','product_id'
     ];
+
+    public function productList()
+    {
+        return $this->belongsTo(ProductList::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

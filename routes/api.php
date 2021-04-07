@@ -44,11 +44,20 @@ Route::group([
 
 Route::group([
     'middleware' => ['jwt.verify'],
-    'prefix' => 'categories'], function() {
+    'prefix' => 'categories'], function()
+{
 
     Route::get("{id?}",[CategoryController::class,'index']);
-    Route::post("add",[CategoryController::class,'create']);
+    Route::post("create",[CategoryController::class,'create']);
     Route::put("update/{id}",[CategoryController::class,'update']);
 });
 
+Route::group([
+    'middleware' => ['jwt.verify'],
+    'prefix' => 'lists'], function()
+{
+
+    Route::get("",'ProductListController@index');
+    Route::post("create",'ProductListController@update');
+});
 
