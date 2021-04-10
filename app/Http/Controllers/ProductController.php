@@ -13,6 +13,11 @@ class ProductController extends Controller
         return $id?Product::findOrFail($id):Product::all();
     }
 
+    public function indexByCategory($id)
+    {
+        return Product::where('category_id',$id)->get();
+    }
+
     public function create(Request $request)
     {
         $product = new Product();

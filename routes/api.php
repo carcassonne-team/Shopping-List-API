@@ -38,6 +38,7 @@ Route::group([
     'prefix' => 'products'], function() {
 
     Route::get('', 'ProductController@index');
+    Route::get('/{id}', 'ProductController@indexByCategory');
     Route::post('create', 'ProductController@create');
     Route::put('update/{id}', 'ProductController@update');
 });
@@ -58,6 +59,15 @@ Route::group([
 {
 
     Route::get("",'ProductListController@index');
-    Route::post("create",'ProductListController@update');
+    Route::post("create",'ProductListController@create');
+});
+
+Route::group([
+    'middleware' => ['jwt.verify'],
+    'prefix' => 'basket'], function()
+{
+
+    Route::get("{id}",'BasketController@index');
+    Route::post("add",'BasketController@add');
 });
 

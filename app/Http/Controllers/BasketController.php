@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Basket;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class BasketController extends Controller
 {
@@ -11,9 +13,9 @@ class BasketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($id=null)
     {
-        //
+        return Basket::where('product_list_id',$id)->with('product')->get();
     }
 
     /**
@@ -21,9 +23,15 @@ class BasketController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function add(Request $request)
     {
-        //
+        $basket = new Basket();
+        $basket->product_list_id = $request->product_list_id;
+        $basket->product_id = $request->product_id;
+        $basket->save();
+        return response()->json([
+            'message' => 'Product has been added to the List (Basket)'
+        ],Response::HTTP_OK);
     }
 
     /**

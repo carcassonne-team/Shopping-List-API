@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ProductList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Symfony\Component\HttpFoundation\Response;
 
 class ProductListController extends Controller
 {
@@ -16,18 +17,22 @@ class ProductListController extends Controller
     public function index()
     {
         $user_id = Auth::user()->id;
-        return ProductList::where('id',$user_id)->get();
+        return ProductList::where('user_id',$user_id)->get();
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return string
      */
     public function create()
     {
         $productList = new ProductList();
         $productList->user_id = Auth::user()->id;
+        $productList->save();
+        return response()->json([
+            'message' => 'Product List has been created'
+        ],Response::HTTP_OK);
     }
 
     /**
