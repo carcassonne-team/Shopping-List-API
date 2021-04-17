@@ -9,9 +9,25 @@ use Symfony\Component\HttpFoundation\Response;
 class BasketController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     * path="api/basket/{id}",
+     * summary="Get Products on a List",
+     * description="Show all Products on a List",
+     * operationId="getBasket",
+     * tags={"Basket"},
+     * security={{ "Bearer": {} }},
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="id", type="number", example="1"),
+     *       @OA\Property(property="product_list_id", type="number", example="1"),
+     *       @OA\Property(property="product_id", type="number", example="1")
+     *       )
+     *    )
      *
-     * @return \Illuminate\Http\Response
+     *
+     * )
      */
     public function index($id=null)
     {
@@ -19,9 +35,30 @@ class BasketController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @OA\Post(
+     * path="api/basket/add",
+     * summary="Add a product to a list (basket)",
+     * description="Add a product to a list (basket)",
+     * operationId="postBasket",
+     * tags={"Basket"},
+     * security={{ "Bearer": {} }},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Provide product list id and product id",
+     *    @OA\JsonContent(
+     *       required={"product_list_id","product_id"},
+     *       @OA\Property(property="product_list_id", type="number", example="1"),
+     *       @OA\Property(property="product_id", type="number", example="1")
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Product has been added to the basket")
+     *        )
+     *     )
+     * )
      */
     public function add(Request $request)
     {

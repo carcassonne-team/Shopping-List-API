@@ -10,9 +10,24 @@ use Symfony\Component\HttpFoundation\Response;
 class ProductListController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * @OA\Get(
+     * path="/api/lists/",
+     * summary="Get Product Lists",
+     * description="Show all Product Lists",
+     * operationId="getProductLists",
+     * tags={"Product Lists"},
+     * security={{ "Bearer": {} }},
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="id", type="number", example="1"),
+     *       @OA\Property(property="user_id", type="number", example="1")
+     *       )
+     *    )
      *
-     * @return \Illuminate\Http\Response
+     *
+     * )
      */
     public function index()
     {
@@ -21,9 +36,23 @@ class ProductListController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * @OA\Post(
+     * path="/api/lists/",
+     * summary="Get Product Lists",
+     * description="Show all Product Lists",
+     * operationId="getProductLists",
+     * tags={"Product Lists"},
+     * security={{ "Bearer": {} }},
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Product List has been created"),
+     *       )
+     *    )
      *
-     * @return string
+     *
+     * )
      */
     public function create()
     {

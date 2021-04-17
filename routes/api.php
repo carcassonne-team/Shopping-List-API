@@ -48,9 +48,9 @@ Route::group([
     'prefix' => 'categories'], function()
 {
 
-    Route::get("{id?}",[CategoryController::class,'index']);
-    Route::post("create",[CategoryController::class,'create']);
-    Route::put("update/{id}",[CategoryController::class,'update']);
+    Route::get("{id?}",'CategoryController@index');
+    Route::post("create",'CategoryController@create');
+    Route::put("update/{id}",'CategoryController@update');
 });
 
 Route::group([
