@@ -18,7 +18,7 @@ class UserController extends Controller
      * summary="Sign in",
      * description="Login by email, password",
      * operationId="authLogin",
-     * tags={"auth"},
+     * tags={"Authorization"},
      * @OA\RequestBody(
      *    required=true,
      *    description="Pass user credentials",
@@ -26,7 +26,6 @@ class UserController extends Controller
      *       required={"email","password"},
      *       @OA\Property(property="email", type="string", format="email", example="user1@mail.com"),
      *       @OA\Property(property="password", type="string", format="password", example="PassWord12345"),
-     *       @OA\Property(property="persistent", type="boolean", example="true"),
      *    ),
      * ),
      * @OA\Response(
@@ -60,7 +59,7 @@ class UserController extends Controller
      * summary="Register",
      * description="Register using an e-mail",
      * operationId="authRegister",
-     * tags={"auth"},
+     * tags={"Authorization"},
      * @OA\RequestBody(
      *    required=true,
      *    description="Pass user credentials",
