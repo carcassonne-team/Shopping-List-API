@@ -5,7 +5,7 @@
         "version": "1.0.0"
     },
     "paths": {
-        "api/basket/{id}": {
+        "/api/basket/{id}": {
             "get": {
                 "tags": [
                     "Basket"
@@ -46,7 +46,7 @@
                 ]
             }
         },
-        "api/basket/add": {
+        "/api/basket/add": {
             "post": {
                 "tags": [
                     "Basket"
