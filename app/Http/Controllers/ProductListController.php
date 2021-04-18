@@ -13,7 +13,7 @@ class ProductListController extends Controller
      * @OA\Get(
      * path="/api/lists/",
      * summary="Get Product Lists",
-     * description="Show all Product Lists",
+     * description="Show all Product Lists belonging to a user",
      * operationId="getProductLists",
      * tags={"Product Lists"},
      * security={{ "Bearer": {} }},
@@ -58,10 +58,15 @@ class ProductListController extends Controller
     {
         $productList = new ProductList();
         $productList->user_id = Auth::user()->id;
-        $productList->save();
-        return response()->json([
-            'message' => 'Product List has been created'
-        ],Response::HTTP_OK);
+        $result=$productList->save();
+        if($result)
+        {
+            return ["Result" =>"Product List has been added"];
+        }
+        else
+        {
+            return ["Result" =>"Add operation failed"];
+        }
     }
 
     /**
