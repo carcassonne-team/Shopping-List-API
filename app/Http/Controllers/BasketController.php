@@ -10,7 +10,7 @@ class BasketController extends Controller
 {
     /**
      * @OA\Get(
-     * path="api/basket/{id}",
+     * path="/api/basket/{id}",
      * summary="Get Products on a List",
      * description="Show all Products on a List",
      * operationId="getBasket",
@@ -36,7 +36,7 @@ class BasketController extends Controller
 
     /**
      * @OA\Post(
-     * path="api/basket/add",
+     * path="/api/basket/add",
      * summary="Add a product to a list (basket)",
      * description="Add a product to a list (basket)",
      * operationId="postBasket",
