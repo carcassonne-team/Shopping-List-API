@@ -344,7 +344,7 @@
                     "Product Lists"
                 ],
                 "summary": "Get Product Lists",
-                "description": "Show all Product Lists",
+                "description": "Show all Product Lists belonging to a user",
                 "operationId": "getProductLists",
                 "responses": {
                     "200": {
@@ -373,7 +373,9 @@
                         "Bearer": []
                     }
                 ]
-            },
+            }
+        },
+        "/api/lists/create": {
             "post": {
                 "tags": [
                     "Product Lists"
