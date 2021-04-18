@@ -37,7 +37,7 @@ class ProductListController extends Controller
 
     /**
      * @OA\Post(
-     * path="/api/lists/",
+     * path="/api/lists/create",
      * summary="Get Product Lists",
      * description="Show all Product Lists",
      * operationId="getProductLists",
