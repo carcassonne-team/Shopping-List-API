@@ -17,9 +17,15 @@ class ProductList extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function basket()
+    public function list_content()
     {
-        return $this->hasMany(Basket::class);
+        return $this->hasMany(ListContent::class);
     }
+
+    public function shared_list()
+    {
+        return $this->hasMany(SharedList::class);
+    }
+
 
 }

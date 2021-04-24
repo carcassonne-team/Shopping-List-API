@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\ListContent;
 use App\ProductList;
+use App\SharedList;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
 class ProductListController extends Controller
@@ -32,7 +35,7 @@ class ProductListController extends Controller
     public function index()
     {
         $user_id = Auth::user()->id;
-        return ProductList::where('user_id',$user_id)->get();
+        return ProductList::where('user_id',$user_id)->with('list_content')->get();
     }
 
     /**
@@ -54,10 +57,12 @@ class ProductListController extends Controller
      *
      * )
      */
-    public function create()
+    public function create(Request $request)
     {
         $productList = new ProductList();
         $productList->user_id = Auth::user()->id;
+        $productList->name = $request->name;
+        $productList->share_code = hexdec(uniqid());
         $result=$productList->save();
         if($result)
         {
@@ -69,26 +74,29 @@ class ProductListController extends Controller
         }
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+
+    public function share(Request $request)
     {
-        //
+        $sharedList = new SharedList();
+        $sharedList->user_id = Auth::user()->id;
+        $sharedList->product_list_id = DB::table("product_lists")->where('share_code',$request->share_code)->value('id');
+        $result=$sharedList->save();
+
+        if($result)
+        {
+            return ["Result" =>"Product List has been shared"];
+        }
+        else
+        {
+            return ["Result" =>"Share operation failed"];
+        }
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+
+    public function show()
     {
-        //
+        $list_id = DB::table("shared_lists")->value('id');
+        return ProductList::where('id',$list_id)->with('list_content')->get();
     }
 
     /**

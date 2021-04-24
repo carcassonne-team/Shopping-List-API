@@ -15,6 +15,8 @@ class CreateProductListsTable extends Migration
     {
         Schema::create('product_lists', function (Blueprint $table) {
             $table->id();
+            $table->string("name");
+            $table->string("share_code")->unique();
             $table->unsignedBigInteger("user_id");
             $table->foreign("user_id")->references("id")->on("users")
                 ->onDelete("cascade");

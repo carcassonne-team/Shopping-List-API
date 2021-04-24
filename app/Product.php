@@ -17,8 +17,8 @@ class Product extends Model
         return $this->belongsTo(Category::class);
     }
 
-    public function basket()
+    public function list_content()
     {
-        return $this->hasMany(Basket::class);
+        return $this->hasMany(ListContent::class);
     }
 }

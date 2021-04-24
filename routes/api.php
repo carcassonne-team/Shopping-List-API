@@ -60,14 +60,16 @@ Route::group([
 
     Route::get("",'ProductListController@index');
     Route::post("create",'ProductListController@create');
+    Route::post("share",'ProductListController@share');
+    Route::get("show",'ProductListController@show');
 });
 
 Route::group([
     'middleware' => ['jwt.verify'],
-    'prefix' => 'basket'], function()
+    'prefix' => 'list_content'], function()
 {
+    Route::post("add",'ListContentController@add');
+    Route::get("/{id}",'ListContentController@index');
 
-    Route::get("{id}",'BasketController@index');
-    Route::post("add",'BasketController@add');
 });
 
