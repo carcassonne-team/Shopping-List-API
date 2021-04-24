@@ -10,10 +10,10 @@ class ListContentController extends Controller
 {
     /**
      * @OA\Get(
-     * path="/api/basket/{id}",
+     * path="/api/list_content/{id}",
      * summary="Get Products on a List",
      * description="Show all Products on a List",
-     * operationId="getBasket",
+     * operationId="getListContent",
      * tags={"ListContent"},
      * security={{ "Bearer": {} }},
      * @OA\Response(
@@ -36,10 +36,10 @@ class ListContentController extends Controller
 
     /**
      * @OA\Post(
-     * path="/api/basket/add",
-     * summary="Add a product to a list (basket)",
-     * description="Add a product to a list (basket)",
-     * operationId="postBasket",
+     * path="/api/list_content/add",
+     * summary="Add a product to a list (list_content)",
+     * description="Add a product to a list (list_content)",
+     * operationId="postListContent",
      * tags={"ListContent"},
      * security={{ "Bearer": {} }},
      * @OA\RequestBody(

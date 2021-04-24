@@ -5,105 +5,6 @@
         "version": "1.0.0"
     },
     "paths": {
-        "/api/basket/{id}": {
-            "get": {
-                "tags": [
-                    "Basket"
-                ],
-                "summary": "Get Products on a List",
-                "description": "Show all Products on a List",
-                "operationId": "getBasket",
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "id": {
-                                            "type": "number",
-                                            "example": "1"
-                                        },
-                                        "product_list_id": {
-                                            "type": "number",
-                                            "example": "1"
-                                        },
-                                        "product_id": {
-                                            "type": "number",
-                                            "example": "1"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ]
-            }
-        },
-        "/api/basket/add": {
-            "post": {
-                "tags": [
-                    "Basket"
-                ],
-                "summary": "Add a product to a list (basket)",
-                "description": "Add a product to a list (basket)",
-                "operationId": "postBasket",
-                "requestBody": {
-                    "description": "Provide product list id and product id",
-                    "required": true,
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "required": [
-                                    "product_list_id",
-                                    "product_id"
-                                ],
-                                "properties": {
-                                    "product_list_id": {
-                                        "type": "number",
-                                        "example": "1"
-                                    },
-                                    "product_id": {
-                                        "type": "number",
-                                        "example": "1"
-                                    }
-                                },
-                                "type": "object"
-                            }
-                        }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Success",
-                        "content": {
-                            "application/json": {
-                                "schema": {
-                                    "properties": {
-                                        "message": {
-                                            "type": "string",
-                                            "example": "Product has been added to the basket"
-                                        }
-                                    },
-                                    "type": "object"
-                                }
-                            }
-                        }
-                    }
-                },
-                "security": [
-                    {
-                        "Bearer": []
-                    }
-                ]
-            }
-        },
         "/api/categories/": {
             "get": {
                 "tags": [
@@ -183,6 +84,105 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Category has been added"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/list_content/{id}": {
+            "get": {
+                "tags": [
+                    "ListContent"
+                ],
+                "summary": "Get Products on a List",
+                "description": "Show all Products on a List",
+                "operationId": "getListContent",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "product_list_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        },
+                                        "product_id": {
+                                            "type": "number",
+                                            "example": "1"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/list_content/add": {
+            "post": {
+                "tags": [
+                    "ListContent"
+                ],
+                "summary": "Add a product to a list (list_content)",
+                "description": "Add a product to a list (list_content)",
+                "operationId": "postListContent",
+                "requestBody": {
+                    "description": "Provide product list id and product id",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "product_list_id",
+                                    "product_id"
+                                ],
+                                "properties": {
+                                    "product_list_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    },
+                                    "product_id": {
+                                        "type": "number",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product has been added to the basket"
                                         }
                                     },
                                     "type": "object"
