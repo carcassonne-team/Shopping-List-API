@@ -25,7 +25,9 @@ class ProductListController extends Controller
      *    description="Success",
      *    @OA\JsonContent(
      *       @OA\Property(property="id", type="number", example="1"),
-     *       @OA\Property(property="user_id", type="number", example="1")
+     *       @OA\Property(property="user_id", type="number", example="1"),
+     *       @OA\Property(property="name", type="string", example="Moja Lista"),
+     *       @OA\Property(property="share_code", type="string", example="ABC123"),
      *       )
      *    )
      *
@@ -46,6 +48,14 @@ class ProductListController extends Controller
      * operationId="getProductLists",
      * tags={"Product Lists"},
      * security={{ "Bearer": {} }},
+     * @OA\RequestBody(
+     * required=true,
+     * description="Provide product list id and product id",
+     * @OA\JsonContent(
+     *      required={"name"},
+     *      @OA\Property(property="name", type="String", example="Super Nazwa"),
+     *    ),
+     * ),
      * @OA\Response(
      *    response=200,
      *    description="Success",
@@ -53,8 +63,6 @@ class ProductListController extends Controller
      *       @OA\Property(property="message", type="string", example="Product List has been created"),
      *       )
      *    )
-     *
-     *
      * )
      */
     public function create(Request $request)
@@ -62,7 +70,7 @@ class ProductListController extends Controller
         $productList = new ProductList();
         $productList->user_id = Auth::user()->id;
         $productList->name = $request->name;
-        $productList->share_code = hexdec(uniqid());
+        $productList->share_code = $this->generateShareCode();
         $result=$productList->save();
         if($result)
         {
@@ -74,7 +82,42 @@ class ProductListController extends Controller
         }
     }
 
+    public function generateShareCode(){
+        $a = $b = '';
 
+        for($i = 0; $i < 3; $i++){
+            $a .= chr(mt_rand(65, 90));
+            $b .= mt_rand(0, 9);
+        }
+
+        return $a . $b;
+    }
+
+    /**
+     * @OA\Post(
+     * path="/api/lists/share",
+     * summary="Share a product list",
+     * description="Share a product list",
+     * operationId="postShareList",
+     * tags={"Product Lists"},
+     * security={{ "Bearer": {} }},
+     * @OA\RequestBody(
+     *    required=true,
+     *    description="Provide a share code",
+     *    @OA\JsonContent(
+     *       required={"share_code"},
+     *       @OA\Property(property="share_code", type="string", example="ABC123"),
+     *    ),
+     * ),
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="List has been shared")
+     *        )
+     *     )
+     * )
+     */
     public function share(Request $request)
     {
         $sharedList = new SharedList();
@@ -123,13 +166,34 @@ class ProductListController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\Delete (
+     * path="/api/lists/{id}",
+     * summary="Delete a product list",
+     * description="Delete a product list",
+     * operationId="deleteList",
+     * tags={"Product Lists"},
+     * security={{ "Bearer": {} }},
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="List has been deleted")
+     *        )
+     *     )
+     * )
      */
     public function destroy($id)
     {
-        //
+        $productList = ProductList::findOrFail($id);
+        $result=$productList->delete();
+
+        if($result)
+        {
+            return ["Result" =>"Product List has been deleted"];
+        }
+        else
+        {
+            return ["Result" =>"Delete operation failed"];
+        }
     }
 }

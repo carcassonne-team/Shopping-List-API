@@ -25,8 +25,6 @@ class ProductController extends Controller
      *       @OA\Property(property="category_id", type="number", example="1")
      *       )
      *    )
-     *
-     *
      * )
      */
     public function index()
@@ -118,6 +116,37 @@ class ProductController extends Controller
         else
         {
             return ["Result" =>"Update operation failed"];
+        }
+    }
+    /**
+     * @OA\Delete (
+     * path="/api/product/{id}",
+     * summary="Delete a product",
+     * description="Delete a product",
+     * operationId="deleteProduct",
+     * tags={"Products"},
+     * security={{ "Bearer": {} }},
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Product has been deleted")
+     *        )
+     *     )
+     * )
+     */
+    public function destroy($id)
+    {
+        $product = Product::findOrFail($id);
+        $result=$product->delete();
+
+        if($result)
+        {
+            return ["Result" =>"Product has been deleted"];
+        }
+        else
+        {
+            return ["Result" =>"Delete operation failed"];
         }
     }
 

@@ -41,6 +41,7 @@ Route::group([
     Route::get('/{id}', 'ProductController@indexByCategory');
     Route::post('create', 'ProductController@create');
     Route::put('update/{id}', 'ProductController@update');
+    Route::delete("/{id}",'ProductController@destroy');
 });
 
 Route::group([
@@ -51,6 +52,7 @@ Route::group([
     Route::get("{id?}",'CategoryController@index');
     Route::post("create",'CategoryController@create');
     Route::put("update/{id}",'CategoryController@update');
+    Route::delete("/{id}",'CategoryController@destroy');
 });
 
 Route::group([
@@ -59,9 +61,12 @@ Route::group([
 {
 
     Route::get("",'ProductListController@index');
+    Route::get("gen",'ProductListController@generateShareCode');
     Route::post("create",'ProductListController@create');
     Route::post("share",'ProductListController@share');
     Route::get("show",'ProductListController@show');
+    Route::delete("/{id}",'ProductListController@destroy');
+
 });
 
 Route::group([
@@ -70,6 +75,7 @@ Route::group([
 {
     Route::post("add",'ListContentController@add');
     Route::get("/{id}",'ListContentController@index');
+    Route::delete("/{id}",'ListContentController@destroy');
 
 });
 

@@ -99,10 +99,43 @@
                 ]
             }
         },
+        "/api/category/{id}": {
+            "delete": {
+                "tags": [
+                    "Categories"
+                ],
+                "summary": "Delete a category",
+                "description": "Delete a category",
+                "operationId": "deleteProduct",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Category has been deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
         "/api/list_content/{id}": {
             "get": {
                 "tags": [
-                    "ListContent"
+                    "List Contents"
                 ],
                 "summary": "Get Products on a List",
                 "description": "Show all Products on a List",
@@ -138,12 +171,43 @@
                         "Bearer": []
                     }
                 ]
+            },
+            "delete": {
+                "tags": [
+                    "List Contents"
+                ],
+                "summary": "Delete a product on a list",
+                "description": "Delete a product on a list",
+                "operationId": "deleteListContent",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product on a list has been deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
             }
         },
         "/api/list_content/add": {
             "post": {
                 "tags": [
-                    "ListContent"
+                    "List Contents"
                 ],
                 "summary": "Add a product to a list (list_content)",
                 "description": "Add a product to a list (list_content)",
@@ -338,6 +402,39 @@
                 ]
             }
         },
+        "/api/product/{id}": {
+            "delete": {
+                "tags": [
+                    "Products"
+                ],
+                "summary": "Delete a product",
+                "description": "Delete a product",
+                "operationId": "deleteProduct",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Product has been deleted"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
         "/api/lists/": {
             "get": {
                 "tags": [
@@ -360,6 +457,14 @@
                                         "user_id": {
                                             "type": "number",
                                             "example": "1"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Moja Lista"
+                                        },
+                                        "share_code": {
+                                            "type": "string",
+                                            "example": "ABC123"
                                         }
                                     },
                                     "type": "object"
@@ -383,6 +488,26 @@
                 "summary": "Get Product Lists",
                 "description": "Show all Product Lists",
                 "operationId": "getProductLists",
+                "requestBody": {
+                    "description": "Provide product list id and product id",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "properties": {
+                                    "name": {
+                                        "type": "String",
+                                        "example": "Super Nazwa"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Success",
@@ -393,6 +518,92 @@
                                         "message": {
                                             "type": "string",
                                             "example": "Product List has been created"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/lists/share": {
+            "post": {
+                "tags": [
+                    "Product Lists"
+                ],
+                "summary": "Share a product list",
+                "description": "Share a product list",
+                "operationId": "postShareList",
+                "requestBody": {
+                    "description": "Provide a share code",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "share_code"
+                                ],
+                                "properties": {
+                                    "share_code": {
+                                        "type": "string",
+                                        "example": "ABC123"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "List has been shared"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "Bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/lists/{id}": {
+            "delete": {
+                "tags": [
+                    "Product Lists"
+                ],
+                "summary": "Delete a product list",
+                "description": "Delete a product list",
+                "operationId": "deleteList",
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "List has been deleted"
                                         }
                                     },
                                     "type": "object"

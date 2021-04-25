@@ -92,4 +92,36 @@ class CategoryController extends Controller
             return ["Result" =>"Update operation failed"];
         }
     }
+
+    /**
+     * @OA\Delete (
+     * path="/api/category/{id}",
+     * summary="Delete a category",
+     * description="Delete a category",
+     * operationId="deleteProduct",
+     * tags={"Categories"},
+     * security={{ "Bearer": {} }},
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Category has been deleted")
+     *        )
+     *     )
+     * )
+     */
+    public function destroy($id)
+    {
+        $category = Category::findOrFail($id);
+        $result=$category->delete();
+
+        if($result)
+        {
+            return ["Result" =>"Category has been deleted"];
+        }
+        else
+        {
+            return ["Result" =>"Delete operation failed"];
+        }
+    }
 }

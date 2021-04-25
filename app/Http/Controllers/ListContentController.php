@@ -14,7 +14,7 @@ class ListContentController extends Controller
      * summary="Get Products on a List",
      * description="Show all Products on a List",
      * operationId="getListContent",
-     * tags={"ListContent"},
+     * tags={"List Contents"},
      * security={{ "Bearer": {} }},
      * @OA\Response(
      *    response=200,
@@ -40,7 +40,7 @@ class ListContentController extends Controller
      * summary="Add a product to a list (list_content)",
      * description="Add a product to a list (list_content)",
      * operationId="postListContent",
-     * tags={"ListContent"},
+     * tags={"List Contents"},
      * security={{ "Bearer": {} }},
      * @OA\RequestBody(
      *    required=true,
@@ -117,13 +117,34 @@ class ListContentController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @OA\Delete (
+     * path="/api/list_content/{id}",
+     * summary="Delete a product on a list",
+     * description="Delete a product on a list",
+     * operationId="deleteListContent",
+     * tags={"List Contents"},
+     * security={{ "Bearer": {} }},
+     * @OA\Response(
+     *    response=200,
+     *    description="Success",
+     *    @OA\JsonContent(
+     *       @OA\Property(property="message", type="string", example="Product on a list has been deleted")
+     *        )
+     *     )
+     * )
      */
     public function destroy($id)
     {
-        //
+        $listContent = ListContent::findOrFail($id);
+        $result=$listContent->delete();
+
+        if($result)
+        {
+            return ["Result" =>"Product on a list has been deleted"];
+        }
+        else
+        {
+            return ["Result" =>"Delete operation failed"];
+        }
     }
 }
