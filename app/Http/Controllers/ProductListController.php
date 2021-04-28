@@ -36,8 +36,8 @@ class ProductListController extends Controller
      */
     public function index()
     {
-        $user_id = Auth::user()->id;
-        return ProductList::where('user_id',$user_id)->with('list_content')->get();
+       $user_id = Auth::user()->id;
+       return ProductList::where('user_id',$user_id)->with('list_content.product.category')->get();
     }
 
     /**
