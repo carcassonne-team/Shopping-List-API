@@ -37,7 +37,24 @@ class ProductListController extends Controller
     public function index()
     {
        $user_id = Auth::user()->id;
-       return ProductList::where('user_id',$user_id)->with('list_content.product.category')->get();
+       $product_list = ProductList::where('user_id',$user_id)->with('list_content.product.category')->get();
+
+       $json = $product_list[0];
+
+       return \response()->json([
+            "id" => $json->id,
+            "name" => $json->name,
+            "share_code" => $json->share_code,
+            "user_id" => $json->user_id,
+            "list_content" => $json->list_content->map(function ($list){
+                return [
+                   "product_id" => $list->product_id,
+                   "product_name" => $list->product->name,
+                   "category_id" => $list->product->category_id,
+                   "category_name" => $list->product->category->name,
+                ];
+            }),
+       ],Response::HTTP_OK);
     }
 
     /**
