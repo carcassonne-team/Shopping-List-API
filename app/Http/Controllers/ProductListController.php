@@ -39,22 +39,24 @@ class ProductListController extends Controller
        $user_id = Auth::user()->id;
        $product_list = ProductList::where('user_id',$user_id)->with('list_content.product.category')->get();
 
-       $json = $product_list[0];
-
-       return \response()->json([
-            "id" => $json->id,
-            "name" => $json->name,
-            "share_code" => $json->share_code,
-            "user_id" => $json->user_id,
-            "list_content" => $json->list_content->map(function ($list){
-                return [
-                   "product_id" => $list->product_id,
-                   "product_name" => $list->product->name,
-                   "category_id" => $list->product->category_id,
-                   "category_name" => $list->product->category->name,
-                ];
-            }),
-       ],Response::HTTP_OK);
+       return \response()->json(
+           $product_list->map(function ($products){
+               return [
+                "id" => $products->id,
+                "name" => $products->name,
+                "share_code" => $products->share_code,
+                "user_id" => $products->user_id,
+                "list_content" => $products->list_content->map(function ($list){
+                   return [
+                       "product_id" => $list->product_id,
+                       "product_name" => $list->product->name,
+                       "category_id" => $list->product->category_id,
+                       "category_name" => $list->product->category->name,
+                   ];
+               })];
+           }
+            )
+       ,Response::HTTP_OK);
     }
 
     /**
@@ -165,9 +167,11 @@ class ProductListController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function indexFull()
     {
-        //
+        $user_id = Auth::user()->id;
+        return ProductList::where('user_id',$user_id)->with('list_content.product.category')->get();
+
     }
 
     /**

@@ -65,6 +65,7 @@ Route::group([
     Route::post("create",'ProductListController@create');
     Route::post("share",'ProductListController@share');
     Route::get("show",'ProductListController@show');
+    Route::get("full",'ProductListController@indexFull');
     Route::delete("/{id}",'ProductListController@destroy');
 
 });
