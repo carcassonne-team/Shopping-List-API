@@ -48,6 +48,7 @@ class ProductListController extends Controller
                 "user_id" => $products->user_id,
                 "list_content" => $products->list_content->map(function ($list){
                    return [
+                       "id" => $list->id,
                        "product_id" => $list->product_id,
                        "product_name" => $list->product->name,
                        "category_id" => $list->product->category_id,
