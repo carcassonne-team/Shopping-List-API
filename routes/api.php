@@ -19,15 +19,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group([
-    'prefix' => 'auth'], function() {
-Route::post('register', 'UserController@register');
-Route::post('login', 'UserController@authenticate');
-Route::get('open', 'DataController@open');
+    'prefix' => 'auth'], function () {
+    Route::post('register', 'UserController@register');
+    Route::post('login', 'UserController@authenticate');
+    Route::get('open', 'DataController@open');
 });
 
 Route::group([
     'middleware' => ['jwt.verify'],
-    'prefix' => 'auth'], function() {
+    'prefix' => 'auth'], function () {
 
     Route::get('user', 'UserController@getAuthenticatedUser');
     Route::get('closed', 'DataController@closed');
@@ -35,48 +35,45 @@ Route::group([
 
 Route::group([
     'middleware' => ['jwt.verify'],
-    'prefix' => 'products'], function() {
+    'prefix' => 'products'], function () {
 
     Route::get('', 'ProductController@index');
     Route::get('/{id}', 'ProductController@indexByCategory');
     Route::post('create', 'ProductController@create');
     Route::put('update/{id}', 'ProductController@update');
-    Route::delete("/{id}",'ProductController@destroy');
+    Route::delete("/{id}", 'ProductController@destroy');
 });
 
 Route::group([
     'middleware' => ['jwt.verify'],
-    'prefix' => 'categories'], function()
-{
+    'prefix' => 'categories'], function () {
 
-    Route::get("{id?}",'CategoryController@index');
-    Route::post("create",'CategoryController@create');
-    Route::put("update/{id}",'CategoryController@update');
-    Route::delete("/{id}",'CategoryController@destroy');
+    Route::get("{id?}", 'CategoryController@index');
+    Route::post("create", 'CategoryController@create');
+    Route::put("update/{id}", 'CategoryController@update');
+    Route::delete("/{id}", 'CategoryController@destroy');
 });
 
 Route::group([
     'middleware' => ['jwt.verify'],
-    'prefix' => 'lists'], function()
-{
+    'prefix' => 'lists'], function () {
 
-    Route::get("",'ProductListController@index');
-    Route::get("gen",'ProductListController@generateShareCode');
-    Route::post("create",'ProductListController@create');
-    Route::post("share",'ProductListController@share');
-    Route::get("show",'ProductListController@show');
-    Route::get("full",'ProductListController@indexFull');
-    Route::delete("/{id}",'ProductListController@destroy');
+    Route::get("", 'ProductListController@index');
+    Route::get("gen", 'ProductListController@generateShareCode');
+    Route::post("create", 'ProductListController@create');
+    Route::post("share", 'ProductListController@share');
+    Route::get("show", 'ProductListController@show');
+    Route::get("full", 'ProductListController@indexFull');
+    Route::delete("/{id}", 'ProductListController@destroy');
 
 });
 
 Route::group([
     'middleware' => ['jwt.verify'],
-    'prefix' => 'list_content'], function()
-{
-    Route::post("add",'ListContentController@add');
-    Route::get("/{id}",'ListContentController@index');
-    Route::delete("/{id}",'ListContentController@destroy');
+    'prefix' => 'list_content'], function () {
+    Route::post("add", 'ListContentController@add');
+    Route::get("/{id}", 'ListContentController@index');
+    Route::delete("/{id}", 'ListContentController@destroy');
 
 });
 

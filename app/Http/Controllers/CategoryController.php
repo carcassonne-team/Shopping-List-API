@@ -29,9 +29,9 @@ class CategoryController extends Controller
      *
      * )
      */
-    function index($id=null)
+    function index($id = null)
     {
-        return $id?Category::findOrFail($id):Category::all();
+        return $id ? Category::findOrFail($id) : Category::all();
     }
 
     /**
@@ -64,15 +64,12 @@ class CategoryController extends Controller
         $category = new Category();
         $category->name = $request->name;
         $category->created_by_user = true;
-        $result=$category->save();
+        $result = $category->save();
 
-        if($result)
-        {
-            return ["Result" =>"Category has been added"];
-        }
-        else
-        {
-            return ["Result" =>"Add operation failed"];
+        if ($result) {
+            return ["Result" => "Category has been added"];
+        } else {
+            return ["Result" => "Add operation failed"];
         }
     }
 
@@ -81,15 +78,12 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->name = $request->name;
         $category->created_by_user = $request->created_by_user;
-        $result=$category->save();
+        $result = $category->save();
 
-        if($result)
-        {
-            return ["Result" =>"Data has been updated"];
-        }
-        else
-        {
-            return ["Result" =>"Update operation failed"];
+        if ($result) {
+            return ["Result" => "Data has been updated"];
+        } else {
+            return ["Result" => "Update operation failed"];
         }
     }
 
@@ -113,15 +107,12 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         $category = Category::findOrFail($id);
-        $result=$category->delete();
+        $result = $category->delete();
 
-        if($result)
-        {
-            return ["Result" =>"Category has been deleted"];
-        }
-        else
-        {
-            return ["Result" =>"Delete operation failed"];
+        if ($result) {
+            return ["Result" => "Category has been deleted"];
+        } else {
+            return ["Result" => "Delete operation failed"];
         }
     }
 }

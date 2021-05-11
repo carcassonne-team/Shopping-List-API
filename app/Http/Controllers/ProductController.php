@@ -48,7 +48,6 @@ class ProductController extends Controller
      *       @OA\Property(property="name", type="string", example="Plum"),
      *       @OA\Property(property="category_id", type="number", example="1")
      *       )
-
      *    )
      *
      *
@@ -56,7 +55,7 @@ class ProductController extends Controller
      */
     public function indexByCategory($id)
     {
-        return Product::where('category_id',$id)->with('category')->get();
+        return Product::where('category_id', $id)->with('category')->get();
     }
 
     /**
@@ -90,34 +89,29 @@ class ProductController extends Controller
         $product = new Product();
         $product->name = $request->name;
         $product->category_id = $request->category_id;
-        $result=$product->save();
+        $result = $product->save();
 
-        if($result)
-        {
-            return ["Result" =>"Data has been saved"];
-        }
-        else
-        {
-            return ["Result" =>"Add operation failed"];
+        if ($result) {
+            return ["Result" => "Data has been saved"];
+        } else {
+            return ["Result" => "Add operation failed"];
         }
     }
 
-    public function update(Request $request,$id)
+    public function update(Request $request, $id)
     {
         $product = Product::findOrFail($id);
         $product->name = $request->name;
         $product->category_id = $request->category_id;
-        $result=$product->save();
+        $result = $product->save();
 
-        if($result)
-        {
-            return ["Result" =>"Data has been updated"];
-        }
-        else
-        {
-            return ["Result" =>"Update operation failed"];
+        if ($result) {
+            return ["Result" => "Data has been updated"];
+        } else {
+            return ["Result" => "Update operation failed"];
         }
     }
+
     /**
      * @OA\Delete (
      * path="/api/product/{id}",
@@ -138,15 +132,12 @@ class ProductController extends Controller
     public function destroy($id)
     {
         $product = Product::findOrFail($id);
-        $result=$product->delete();
+        $result = $product->delete();
 
-        if($result)
-        {
-            return ["Result" =>"Product has been deleted"];
-        }
-        else
-        {
-            return ["Result" =>"Delete operation failed"];
+        if ($result) {
+            return ["Result" => "Product has been deleted"];
+        } else {
+            return ["Result" => "Delete operation failed"];
         }
     }
 

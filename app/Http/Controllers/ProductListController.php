@@ -36,28 +36,28 @@ class ProductListController extends Controller
      */
     public function index()
     {
-       $user_id = Auth::user()->id;
-       $product_list = ProductList::where('user_id',$user_id)->with('list_content.product.category')->get();
+        $user_id = Auth::user()->id;
+        $product_list = ProductList::where('user_id', $user_id)->with('list_content.product.category')->get();
 
-       return \response()->json(
-           $product_list->map(function ($products){
-               return [
-                "id" => $products->id,
-                "name" => $products->name,
-                "share_code" => $products->share_code,
-                "user_id" => $products->user_id,
-                "list_content" => $products->list_content->map(function ($list){
-                   return [
-                       "id" => $list->id,
-                       "product_id" => $list->product_id,
-                       "product_name" => $list->product->name,
-                       "category_id" => $list->product->category_id,
-                       "category_name" => $list->product->category->name,
-                   ];
-               })];
-           }
+        return \response()->json(
+            $product_list->map(function ($products) {
+                return [
+                    "id" => $products->id,
+                    "name" => $products->name,
+                    "share_code" => $products->share_code,
+                    "user_id" => $products->user_id,
+                    "list_content" => $products->list_content->map(function ($list) {
+                        return [
+                            "id" => $list->id,
+                            "product_id" => $list->product_id,
+                            "product_name" => $list->product->name,
+                            "category_id" => $list->product->category_id,
+                            "category_name" => $list->product->category->name,
+                        ];
+                    })];
+            }
             )
-       ,Response::HTTP_OK);
+            , Response::HTTP_OK);
     }
 
     /**
@@ -91,21 +91,19 @@ class ProductListController extends Controller
         $productList->user_id = Auth::user()->id;
         $productList->name = $request->name;
         $productList->share_code = $this->generateShareCode();
-        $result=$productList->save();
-        if($result)
-        {
-            return ["Result" =>"Product List has been added"];
-        }
-        else
-        {
-            return ["Result" =>"Add operation failed"];
+        $result = $productList->save();
+        if ($result) {
+            return ["Result" => "Product List has been added"];
+        } else {
+            return ["Result" => "Add operation failed"];
         }
     }
 
-    public function generateShareCode(){
+    public function generateShareCode()
+    {
         $a = $b = '';
 
-        for($i = 0; $i < 3; $i++){
+        for ($i = 0; $i < 3; $i++) {
             $a .= chr(mt_rand(65, 90));
             $b .= mt_rand(0, 9);
         }
@@ -142,49 +140,28 @@ class ProductListController extends Controller
     {
         $sharedList = new SharedList();
         $sharedList->user_id = Auth::user()->id;
-        $sharedList->product_list_id = DB::table("product_lists")->where('share_code',$request->share_code)->value('id');
-        $result=$sharedList->save();
+        $sharedList->product_list_id = DB::table("product_lists")->where('share_code', $request->share_code)->value('id');
+        $result = $sharedList->save();
 
-        if($result)
-        {
-            return ["Result" =>"Product List has been shared"];
-        }
-        else
-        {
-            return ["Result" =>"Share operation failed"];
+        if ($result) {
+            return ["Result" => "Product List has been shared"];
+        } else {
+            return ["Result" => "Share operation failed"];
         }
     }
-
 
     public function show()
     {
         $list_id = DB::table("shared_lists")->value('id');
-        return ProductList::where('id',$list_id)->with('list_content')->get();
+        return ProductList::where('id', $list_id)->with('list_content')->get();
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function indexFull()
     {
         $user_id = Auth::user()->id;
-        return ProductList::where('user_id',$user_id)->with('list_content.product.category')->get();
+        return ProductList::where('user_id', $user_id)->with('list_content.product.category')->get();
 
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
     /**
@@ -207,15 +184,12 @@ class ProductListController extends Controller
     public function destroy($id)
     {
         $productList = ProductList::findOrFail($id);
-        $result=$productList->delete();
+        $result = $productList->delete();
 
-        if($result)
-        {
-            return ["Result" =>"Product List has been deleted"];
-        }
-        else
-        {
-            return ["Result" =>"Delete operation failed"];
+        if ($result) {
+            return ["Result" => "Product List has been deleted"];
+        } else {
+            return ["Result" => "Delete operation failed"];
         }
     }
 }
