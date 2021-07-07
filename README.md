@@ -1,61 +1,63 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Shopping List - API
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+This project was my first API made with Laravel and Docker. It was done, during my sixth semester of studying at the Witelon State Univeristy of Applied Sciences in Legnica, to pass a course called "Intermediate Methods of Programming"
 
-## About Laravel
+This API allows us to manage a shopping list, products and categories of products. One can add, edit and delete any of the three mentioned earlier. There were plans to implement sharing the shopping lists but due to the lack of time, I've never finished that part of the project. Maybe one day I'll finish it properly.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+There are also three projects that use my API:
+- [Web](https://github.com/shopping-list-zmp/Web) - made in Vue by [Patryk Zym](https://github.com/rewe999)
+- [Desktop](https://github.com/shopping-list-zmp/Desktop) - made in Electron and Angular by [Andrzej Lech](https://github.com/AndrzejLech)
+- [Mobile for iOS](https://github.com/shopping-list-zmp/iOS) - made in Swift by [Mateusz Leśniara](https://github.com/Overnerfed)
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Installation
+### 1. Create `.env` file based on `.env.example`:
+Linux:
+```shell script
+cp .env.example .env
+```
+Windows:
+```shell script
+copy .env.example .env
+```
+### 2. Run containers:
+```shell script
+docker-compose up -d
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### 3. Enter the container:
+```shell script
+docker exec -it api_app_1 /bin/bash
+```
 
-## Learning Laravel
+### 4. Fetch dependencies:
+```shell script
+composer install
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+### 5. Generate application key:
+```shell script
+ php artisan key:generate
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### 6. Run migrations:
+```shell script
+ php artisan migrate
+```
 
-## Laravel Sponsors
+### 7. Generate JWT key:
+```shell script
+ php artisan jwt:secret
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+### 8. Generate API docs:
+```shell script
+ php artisan l5-swagger:generate
+```
 
-### Premium Partners
+### 9. All done! You can access API docs here:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[OP.GG](https://op.gg)**
+ http://localhost:8080/api/docs
 
-## Contributing
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Author:
+- [Mikołaj Gawroński](https://github.com/mikolajgawronski)
